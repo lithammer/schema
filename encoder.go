@@ -16,8 +16,20 @@ type Encoder struct {
 }
 
 // NewEncoder returns a new Encoder with defaults.
-func NewEncoder() *Encoder {
-	return &Encoder{cache: newCache(), regenc: make(map[reflect.Type]encoderFunc)}
+func NewEncoder(opts ...option[Encoder]) *Encoder {
+	e := &Encoder{cache: newCache(), regenc: make(map[reflect.Type]encoderFunc)}
+	for _, opt := range opts {
+		opt(e)
+	}
+	return e
+}
+
+// WithAliasTagEncoderOpt changes the tag used to locate custom field aliases.
+// The default tag is "schema".
+func WithAliasTagEncoderOpt(tag string) option[Encoder] {
+	return func(e *Encoder) {
+		e.SetAliasTag(tag)
+	}
 }
 
 // Encode encodes a struct into map[string][]string.
