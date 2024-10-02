@@ -27,45 +27,28 @@ func NewDecoder(opts ...option[Decoder]) *Decoder {
 	return d
 }
 
-// WithAliasTagDecoderOpt changes the tag used to locate custom field aliases.
-// The default tag is "schema".
+// See [Decoder.SetAliasTag] for more information.
 func WithAliasTagDecoderOpt(tag string) option[Decoder] {
 	return func(d *Decoder) {
 		d.SetAliasTag(tag)
 	}
 }
 
-// WithZeroEmptyDecoderOpt controls the behaviour when the decoder encounters empty values.
-// in a map.
-// If z is true and a key in the map has the empty string as a value
-// then the corresponding struct field is set to the zero value.
-// If z is false then empty strings are ignored.
-//
-// The default value is false, that is empty values do not change
-// the value of the struct field.
+// See [Decoder.ZeroEmpty] for more information.
 func WithZeroEmptyDecoderOpt(z bool) option[Decoder] {
 	return func(d *Decoder) {
 		d.ZeroEmpty(z)
 	}
 }
 
-// WithIgnoreUnknownKeysDecoderOpt controls the behaviour when the decoder
-// encounters unknown keys in the map.
-// If i is true and an unknown field is encountered, it is ignored. This is
-// similar to how unknown keys are handled by encoding/json.
-// If i is false then Decode will return an error. Note that any valid keys
-// will still be decoded in to the target struct.
-//
-// To preserve backwards compatibility, the default value is false.
+// See [Decoder.IgnoreUnknownKeys] for more information.
 func WithIgnoreUnknownKeysDecoderOpt(i bool) option[Decoder] {
 	return func(d *Decoder) {
 		d.IgnoreUnknownKeys(i)
 	}
 }
 
-// WithMaxSizeDecoderOpt limits the size of slices for URL nested arrays or object arrays.
-// Choose MaxSize carefully; large values may create many zero-value slice elements.
-// Example: "items.100000=apple" would create a slice with 100,000 empty strings.
+// See [Decoder.MaxSize] for more information.
 func WithMaxSizeDecoderOpt(size int) option[Decoder] {
 	return func(d *Decoder) {
 		d.MaxSize(size)

@@ -24,8 +24,7 @@ func NewEncoder(opts ...option[Encoder]) *Encoder {
 	return e
 }
 
-// WithAliasTagEncoderOpt changes the tag used to locate custom field aliases.
-// The default tag is "schema".
+// See [Encoder.SetAliasTag] for more information.
 func WithAliasTagEncoderOpt(tag string) option[Encoder] {
 	return func(e *Encoder) {
 		e.SetAliasTag(tag)
