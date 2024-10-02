@@ -525,9 +525,7 @@ func TestRegisterEncoderWithPtrType(t *testing.T) {
 }
 
 func TestNewEncoderWithOptions(t *testing.T) {
-	defaultEncoder := NewEncoder()
-
-	aliasTag := defaultEncoder.cache.tag + "-test"
+	aliasTag := defaultCacheTag + "-test"
 	encoder := NewEncoder(
 		WithAliasTagEncoderOpt(aliasTag),
 	)
